@@ -1,30 +1,30 @@
 {
-    "name": "smart-jump",
-    "displayName": "Smart Jump",
+    "name": "smart-tabout",
+    "displayName": "Smart tabout",
     "description": "Press any configured key to jump over closing brackets or quotes, otherwise insert the key.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "aaron20100919",
     "engines": {
         "vscode": "^1.60.0"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/aaron20100919/smart-jump"
+        "url": "https://github.com/aaron20100919/smart-tabout"
     },
     "activationEvents": [
-        "onCommand:smart-jump.jumpOrInsert"
+        "onCommand:smart-tabout.jumpOrInsert"
     ],
     "contributes": {
         "commands": [
             {
-                "command": "smart-jump.jumpOrInsert",
+                "command": "smart-tabout.jumpOrInsert",
                 "title": "Jump or Insert",
-                "category": "Smart Jump"
+                "category": "Smart Tabout"
             }
         ],
         "keybindings": [
             {
-                "command": "smart-jump.jumpOrInsert",
+                "command": "smart-tabout.jumpOrInsert",
                 "key": "`",
                 "args": {
                     "char": "`"

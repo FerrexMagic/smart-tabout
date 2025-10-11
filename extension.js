@@ -27,7 +27,7 @@ async function jumpOrInsert(args = {}) {
 
 function activate(context) {
     context.subscriptions.push(
-        vscode.commands.registerCommand('smart-jump.jumpOrInsert', jumpOrInsert)
+        vscode.commands.registerCommand('smart-tabout.jumpOrInsert', jumpOrInsert)
     );
 }
 
