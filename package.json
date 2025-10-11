@@ -11,6 +11,9 @@
         "type": "git",
         "url": "https://github.com/aaron20100919/smart-jump"
     },
+    "activationEvents": [
+        "onCommand:smart-jump.jumpOrInsert"
+    ],
     "contributes": {
         "commands": [
             {

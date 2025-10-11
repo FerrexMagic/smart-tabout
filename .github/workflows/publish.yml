@@ -1,0 +1,44 @@
+name: Auto Publish VSCode Extension
+
+on:
+  push:
+    branches:
+      - main       # 每次 push 到 main 分支触发
+  workflow_dispatch: # 允许手动触发
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install vsce
+        run: npm install -g vsce
+
+      - name: Read version from package.json
+        id: get_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Package extension
+        run: |
+          vsce package
+          echo "Packaged extension version ${{ steps.get_version.outputs.version }}"
+
+      - name: Publish extension
+        env:
+          VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
+        run: |
+          echo "Publishing VSCode extension..."
+          vsce publish --packagePath smart-jump-${{ steps.get_version.outputs.version }}.vsix --pat $VSCE_TOKEN

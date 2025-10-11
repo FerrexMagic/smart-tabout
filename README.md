@@ -5,4 +5,4 @@ Vscode Extension--Smart Jump(Tabout-plus)
 
 You can set keybind and then easy to jump out of `)]}'">`.
 
-If you hate it, you can disable it and report issue.
+If you hate it, you can disable it (please restart vscode) and report issue.
