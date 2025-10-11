@@ -3,8 +3,8 @@ name: Auto Publish VSCode Extension
 on:
   push:
     branches:
-      - main       # 每次 push 到 main 分支触发
-  workflow_dispatch: # 支持手动触发
+      - main
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -25,20 +25,30 @@ jobs:
       - name: Install vsce 2.x
         run: npm install -g vsce@2.10.1
 
-      - name: Read version from package.json
-        id: get_version
+      - name: Bump patch version
+        id: bump_version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          # 自动递增 patch
+          VERSION=$(node -p "let v=require('./package.json').version.split('.'); v[2]=parseInt(v[2])+1; v.join('.')") 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          # 更新 package.json
+          node -e "
+            const fs=require('fs'); 
+            const p=require('./package.json'); 
+            const v='$VERSION'; 
+            p.version=v; 
+            fs.writeFileSync('./package.json', JSON.stringify(p,null,2))
+          "
+          echo "Bumped version to $VERSION"
 
       - name: Package extension
         run: |
           vsce package
-          echo "Packaged extension version ${{ steps.get_version.outputs.version }}"
+          echo "Packaged extension version ${{ steps.bump_version.outputs.version }}"
 
       - name: Publish extension to Marketplace
         env:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
         run: |
           echo "Publishing VSCode extension..."
-          vsce publish --packagePath smart-jump-${{ steps.get_version.outputs.version }}.vsix --pat $VSCE_TOKEN
+          vsce publish --packagePath smart-jump-${{ steps.bump_version.outputs.version }}.vsix --pat $VSCE_TOKEN
