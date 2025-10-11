@@ -51,4 +51,4 @@ jobs:
           VSCE_TOKEN: ${{ secrets.VSCE_TOKEN }}
         run: |
           echo "Publishing VSCode extension..."
-          vsce publish --packagePath smart-jump-${{ steps.bump_version.outputs.version }}.vsix --pat $VSCE_TOKEN
+          vsce publish ${{ steps.bump_version.outputs.version }} --pat $VSCE_TOKEN
