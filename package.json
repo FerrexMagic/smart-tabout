@@ -2,7 +2,7 @@
     "name": "smart-jump",
     "displayName": "Smart Jump",
     "description": "Press any configured key to jump over closing brackets or quotes, otherwise insert the key.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "aaron20100919",
     "engines": {
         "vscode": "^1.60.0"
