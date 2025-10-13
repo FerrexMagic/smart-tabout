@@ -2,7 +2,7 @@
     "name": "smart-tabout",
     "displayName": "Smart tabout",
     "description": "Press any configured key to jump over closing brackets or quotes, otherwise insert the key.",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "aaron20100919",
     "engines": {
         "vscode": "^1.60.0"

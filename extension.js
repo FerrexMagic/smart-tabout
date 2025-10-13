@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 
-const CLOSERS = [')', ']', '}', '"', "'", '>'];
+const CLOSERS = [')', ']', '}', '"', "'", '>', ';', ',', '$'];
 
 function shouldJump(editor) {
     const pos = editor.selection.active;
