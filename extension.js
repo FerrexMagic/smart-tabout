@@ -1,7 +1,8 @@
-const { log } = require("console");
 const vscode = require("vscode");
 
-const CLOSERS = [")", "]", "}", '"', "'", ">", ";", ","];
+const CLOSERS = [")", "]", '"', "'", ">", ";", ","];
+
+
 
 function shouldJump(editor, char) {
   const pos = editor.selection.active;

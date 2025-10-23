@@ -1,124 +1,72 @@
 # Smart TabOut Fork
 
-
-[![Visual Studio Marketplace](https://img.shields.io/badge/VS%20Code-Extension-blue?logo=visualstudiocode)](https://marketplace.visualstudio.com/)
-[![Version](https://img.shields.io/badge/version-0.0.1-brightgreen)](https://github.com/FerrexMagic/smart-tabout)
-[![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
-
-**Smart TabOut Fork** is a lightweight Visual Studio Code extension that lets you **jump out of brackets, quotes, and other closing characters** — then automatically insert a semicolon (or any character you define).
-
-A faster, smarter way to finish your lines of code.
-
-This is a fork of [smart-tabout](https://github.com/aaron20100919/smart-tabout) by **aaron20100919**, with improved handling for semicolon insertion and modern keybinding logic.
-
----
+Smart TabOut Fork is a Visual Studio Code extension that allows you to jump out of brackets, quotes, and other paired characters intelligently. It also handles special cases such as semicolons in `for` loops across languages like C++, Java, and JavaScript.
 
 ## ✨ Features
 
-- 🚀 **Smart jump** – Move the cursor past a closing character instead of typing over it.
-- 🧠 **Auto insert** – Inserts `;`, `:`, or any key when not in front of a closing character.
-- 🌍 **Language-aware** – Works automatically for languages like C++, Java, JavaScript, TypeScript, Python, and JSON.
-- ⚡ **Lightweight and dependency-free** – Simple, fast, and minimal.
+- Automatically jumps over closing characters like `)`, `]`, `"`, `'`, `>`, `;`, and `,`.
+- Smart handling of semicolons inside `for (...)` loops.
+- Custom keybindings for `;`, `:`, and `` ` ``.
+- Supports languages like C++, Java, JavaScript, Python, and JSON.
+- Easily place characters after parentheses or quotes without manually moving the cursor.
 
----
+## 🛠 How It Works
 
-## ⚙️ How It Works
+When you press a configured key (for example, `;`), the extension checks:
+- If the next character is a closing symbol, the cursor jumps past it instead of inserting the character.
+- If inside a `for` loop statement and conditions are met, it prevents jumping to avoid breaking code logic.
+- Otherwise, it inserts the character as expected.
 
-When you press a configured key (e.g., `;`), the extension checks the **next character**:
-
-1. If the next character is one of:
-   ```
-   ) ] } " ' > ; , $
-   ```
-   → the cursor jumps **after** it and inserts `;`.
-
-2. Otherwise, it just inserts the key as normal.
-
----
-
-## 🧠 Example
-
-| Before | Key Pressed | After |
-|--------|--------------|--------|
-| `myFunc()`◀️ | `;` | `myFunc();` |
-| `console.log("text"◀️)` | `;` | `console.log("text");` |
-| `array[0]◀️` | `;` | `array[0];` |
-
-*(◀️ indicates the cursor position before pressing the key)*
-
----
-
-## 🔑 Default Keybindings
-
-```json
-{
-  "key": ";",
-  "command": "smart-tabout-fork.jumpOrInsert",
-  "args": { "char": ";" },
-  "when": "editorTextFocus && editorLangId == 'cpp' || editorLangId == 'java' || editorLangId == 'javascript' || editorLangId == 'typescript'"
-},
-{
-  "key": ":",
-  "command": "smart-tabout-fork.jumpOrInsert",
-  "args": { "char": ":" },
-  "when": "editorTextFocus && editorLangId == 'py' || editorLangId == 'json'"
-}
+### Supported Closers:
+```
+) ] " ' > ; ,
 ```
 
-You can customize or add more bindings in your **VS Code keybindings.json**.
+## 📦 Installation
 
----
-
-## 🧩 Installation
-
-### From Source
-1. Clone this repository:
+1. Download or clone this repository:
    ```bash
-   git clone https://github.com/FerrexMagic/smart-tabout.git
-   cd smart-tabout
+   git clone https://github.com/FerrexMagic/smart-tabout
    ```
-2. Open the folder in **VS Code**.
-3. Press `F5` to start the extension in a new **Extension Development Host** window.
+2. Open the folder in Visual Studio Code.
+3. Run the extension:
+   - Press `F5` to launch a new VS Code window with the extension enabled.
 
-### From VS Code Marketplace
-*(Coming soon — will be available once published to the Marketplace)*
+## ⌨ Default Keybindings
 
----
+| Key | Command                        | Languages                     |
+|-----|----------------------------------|-------------------------------|
+| `;` | smart-tabout-fork.semicolon     | C++, Java, JavaScript        |
+| `:` | smart-tabout-fork.colon         | Python, JSON                 |
+| `` ` `` | smart-tabout-fork.backtick | All languages                |
+
+You can customize these in your `keybindings.json`.
+
+## ⚙ Commands
+
+| Command Name                    | Description                       |
+|----------------------------------|-----------------------------------|
+| smart-tabout-fork.semicolon     | Smart handling of `;`             |
+| smart-tabout-fork.colon         | Smart handling of `:`             |
+| smart-tabout-fork.backtick      | Smart handling of `` ` ``         |
 
 ## 📁 Project Structure
 
 ```
 smart-tabout-fork/
-├── extension.js          # Main extension logic
-├── package.json          # VS Code extension configuration
-└── README.md             # This file
+├── extension.js   # Core logic of the extension
+├── package.json   # Extension metadata and configuration
 ```
+
+## 🤝 Credits
+
+- Original repository by **aaron20100919**  
+- Forked and improved by **FerrexMagic**
+
+## 📃 License
+
+This project is licensed under the MIT License.
 
 ---
 
-## 🧑‍💻 Development
-
-Main logic excerpt from `extension.js`:
-
-```js
-const CLOSERS = [")", "]", "}", '"', "'", ">", ";", ",", "$"];
-```
-
-Command:
-```js
-smart-tabout-fork.jumpOrInsert
-```
-
-This checks if the cursor is in front of a closing character, jumps over it, and inserts the specified character.
-
----
-
-## 📜 License
-
-This project is licensed under the **MIT License**.  
-Original work by [aaron20100919/smart-tabout](https://github.com/aaron20100919/smart-tabout).  
-Fork maintained by [FerrexMagic](https://github.com/FerrexMagic).
-
----
-
-> ⚡ _Smart TabOut Fork — Jump smarter, type faster._
+Enjoy coding smarter and faster! 🧠🚀
