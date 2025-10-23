@@ -1,37 +1,58 @@
 {
-    "name": "smart-tabout",
-    "displayName": "Smart tabout",
-    "description": "Press any configured key to jump over closing brackets or quotes, otherwise insert the key.",
-    "version": "0.0.5",
-    "publisher": "aaron20100919",
-    "engines": {
-        "vscode": "^1.60.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/aaron20100919/smart-tabout"
-    },
-    "activationEvents": [
-        "onCommand:smart-tabout.jumpOrInsert"
+  "name": "smart-tabout-fork",
+  "displayName": "Smart TabOut Fork",
+  "description": "Jump out of brackets and write quotes, semicolons, or other characters smartly.",
+  "version": "0.0.1",
+  "publisher": "FerrexMagic",
+  "contributors": [
+    {
+      "name": "aaron20100919",
+      "url": "https://github.com/aaron20100919/smart-tabout"
+    }
+  ],
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FerrexMagic/smart-tabout"
+  },
+  "main": "extension.js",
+  "activationEvents": [
+    "onCommand:smart-tabout-fork.jumpOrInsert"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "smart-tabout-fork.semicolon",
+        "title": "Smart TabOut: ;"
+      },
+      {
+        "command": "smart-tabout-fork.colon",
+        "title": "Smart TabOut: :"
+      },
+      {
+        "command": "smart-tabout-fork.backtick",
+        "title": "Smart TabOut: `"
+      }
     ],
-    "contributes": {
-        "commands": [
-            {
-                "command": "smart-tabout.jumpOrInsert",
-                "title": "Jump or Insert",
-                "category": "Smart Tabout"
-            }
-        ],
-        "keybindings": [
-            {
-                "command": "smart-tabout.jumpOrInsert",
-                "key": "`",
-                "args": {
-                    "char": "`"
-                },
-                "when": "editorTextFocus"
-            }
-        ]
-    },
-    "main": "./extension.js"
+    "keybindings": [
+      {
+        "key": ";",
+        "command": "smart-tabout-fork.semicolon",
+        "when": "editorTextFocus && !editorReadonly && (editorLangId == 'cpp' || editorLangId == 'java' || editorLangId == 'javascript')"
+      },
+      {
+        "key": ":",
+        "command": "smart-tabout-fork.colon",
+        "when": "editorTextFocus && !editorReadonly && (editorLangId == 'python' || editorLangId == 'json')"
+      },
+      {
+        "key": "`",
+        "command": "smart-tabout-fork.backtick",
+        "when": "editorTextFocus && !editorReadonly"
+      }
+    ]
+  },
+  "dependencies": {}
 }
