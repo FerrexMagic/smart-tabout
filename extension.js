@@ -11,15 +11,11 @@ function shouldJump(editor, char) {
 
   const lineText = doc.lineAt(pos.line).text;
 
-  // Solo aplicar lógica especial para lenguajes C-like
   if (["cpp", "java", "javascript"].includes(lang) && char === ";") {
     const forMatch = lineText.match(/for\s*\([^)]*\)/);
     if (forMatch) {
       const open = lineText.indexOf("(");
-      const close = lineText.indexOf(")");
-      console.log("open", open, "close", close);
-      console.log("pos", pos.character);
-      
+      const close = lineText.indexOf(")");      
       if (pos.character > open && pos.character <= close) {
         const beforeCursor = lineText.slice(open + 1, pos.character);
         const semicolonsBefore = (beforeCursor.match(/;/g) || []).length;
