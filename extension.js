@@ -16,7 +16,7 @@ function shouldJump(editor, char) {
     const forMatch = lineText.match(/for\s*\([^)]*\)/);
     if (forMatch) {
       const open = lineText.indexOf("(");
-      const close = lineText.indexOf(")");      
+      const close = lineText.indexOf(")");
       if (pos.character > open && pos.character <= close) {
         const beforeCursor = lineText.slice(open + 1, pos.character);
         const semicolonsBefore = (beforeCursor.match(/;/g) || []).length;
@@ -42,14 +42,15 @@ async function jumpOrInsert(args = {}) {
     await vscode.commands.executeCommand("cursorRight");
     const pos = editor.selection.active;
     const lineText = editor.document.lineAt(pos.line).text;
-    if (!(["cpp", "java", "javascript"].includes(editor.document.languageId)
-        && ch === ";"
-        && /for\s*\([^)]*\)/.test(lineText)
-        && pos.character < lineText.indexOf(")")
-      )) {
-      await vscode.commands.executeCommand("cursorRight");
-    }
-  } else if (ch) {
+
+
+    await editor.edit((editBuilder) => {
+      for (const sel of editor.selections) {
+        editBuilder.insert(sel.active, ch);
+      }
+    });
+  }
+  else if (ch) {
     await editor.edit((editBuilder) => {
       for (const sel of editor.selections) {
         editBuilder.insert(sel.active, ch);
@@ -72,6 +73,6 @@ function activate(context) {
   }
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = { activate, deactivate };
